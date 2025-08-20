@@ -1,21 +1,13 @@
-import Fastify from "fastify";
+import express from "express";
 
-const port = process.env.PORT ?? 3333;
+const port = process.env.PORT ?? "3333";
 
-const fastify = Fastify({
-  // logger: true
+const app = express();
+
+app.get("/", function (req, res) {
+  res.send({ hello: "world" });
 });
 
-// Declare a route
-fastify.get("/", function (request, reply) {
-  reply.send({ hello: "world" });
-});
-
-// Run the server!
-fastify.listen({ port: Number(port) }, function (err, address) {
-  if (err) {
-    fastify.log.error(err);
-    process.exit(1);
-  }
-  console.log(`Server listening at: ${address}`);
+app.listen(port, () => {
+  console.log(`Server listening at: ${port}`);
 });
